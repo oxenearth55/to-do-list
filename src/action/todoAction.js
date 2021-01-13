@@ -3,10 +3,16 @@ DELETE_TODO,
 DONE_LIST,
 EDIT_TODO,
 UNDONE_LIST,
-HISTORY_UPDATE } from './types';
+HISTORY_UPDATE,
+CLEAR_HISTORY } from './types';
+
 
 export const add_todo = (todoList) => dispatch => {
+    //NOTE Set Date
+    const d = new Date()
     todoList.trigger = 'added';
+    todoList.date = d;
+    //NOTE Destructuring
     const { text, date, trigger } = todoList;
 
     dispatch({
@@ -70,12 +76,25 @@ export const undone_list = (uniqe_id, list) => dispatch => {
 
 }
 
-export const edit_list = (uniqe_id, text, oldValue) => dispatch => {
+export const edit_list = (uniqe_id, text, oldValue,date) => dispatch => {
     const trigger = 'edited';
     
 
     dispatch({
         type: EDIT_TODO ,
-        payload: {uniqe_id, text, trigger, oldValue}
+        payload: {uniqe_id, text }
+    })
+
+    dispatch({
+        type: HISTORY_UPDATE ,
+        payload: {text,date,trigger,oldValue}
+    })
+
+}
+
+export const clear_history = () => dispatch => {
+
+    dispatch({
+        type: CLEAR_HISTORY
     })
 }

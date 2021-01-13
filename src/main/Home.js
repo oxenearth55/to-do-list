@@ -14,6 +14,7 @@ const Home = ({add_todo}) => {
         status:'undone',
         oldValue:''
     })
+    const d = new Date();
 
 
     const handelChange = name => e => {

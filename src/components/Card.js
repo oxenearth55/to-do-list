@@ -1,6 +1,7 @@
 import React, {useState, useEffect ,Fragment} from 'react'
 import {connect} from 'react-redux'
 import { delete_todo, done_list, undone_list, edit_list } from '../action/todoAction'
+import Moment from 'react-moment'
 
 const Card = ({uniqe_id, list, delete_todo, done_list, undone_list, default_list, edit_list }) => {
     const [edit, setEdit] = useState(false);
@@ -22,7 +23,7 @@ const Card = ({uniqe_id, list, delete_todo, done_list, undone_list, default_list
 
     const editSubmit = e => {
         e.preventDefault(); 
-        edit_list(uniqe_id, text,oldValue );
+        edit_list(uniqe_id, text,oldValue,list.date );
         setEdit(false);
     }
 
@@ -57,9 +58,9 @@ const Card = ({uniqe_id, list, delete_todo, done_list, undone_list, default_list
         <div className="card border col-4 p-3 ">
             <div className="row">
                 {!edit ? <Fragment>
-                <div className="col-8">
+                <div className="col-6">
                     {list.text}                 
-                </div>
+                </div> 
                 <div className="col-4 todo-action">
                     {default_list ? <i onClick={() => done_list(uniqe_id, list)} className="fas fa-check green-text mx-2"></i>
                     : 

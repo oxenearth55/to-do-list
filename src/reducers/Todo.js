@@ -5,7 +5,8 @@ import {
     DELETE_TODO,
     EDIT_TODO,
     UNDONE_LIST,
-    HISTORY_UPDATE
+    HISTORY_UPDATE,
+    CLEAR_HISTORY
 
 
 } from '../action/types';
@@ -35,25 +36,24 @@ export default function(state = initialState, action){
                 doneLists: state.doneLists.filter(doneList => doneList.id !== payload.uniqe_id),
                 
             }
+        // SECTION Remove list from undone to done list
         case DONE_LIST: 
             return {
                 ...state, 
+                //NOTE Bring list that doesn't match out from lists
                 lists: state.lists.filter(list => list.id !== payload.uniqe_id),
-                doneLists: [...state.doneLists, payload.list],
-
+                //NOTE Add playload to doneLists
+                doneLists: [...state.doneLists, payload.list]
 
             }
 
-            case HISTORY_UPDATE: 
-                return {
-                    ...state,
-                    historys: [...state.historys, payload], //ANCHOR
-                }
-
-            case UNDONE_LIST: 
+        // SECTION Remove list from done to undone list
+        case UNDONE_LIST: 
             return {
                 ...state, 
+                //NOTE Bring doneList that doesn't match out from doneLists
                 doneLists: state.doneLists.filter(doneList => doneList.id !== payload.uniqe_id),
+                 //NOTE Add payload to lists
                 lists: [...state.lists, payload.list]
 
             }
@@ -64,16 +64,29 @@ export default function(state = initialState, action){
                     ...state, 
                   
                     lists: state.lists.map(list => list.id === payload.uniqe_id ? 
-                        {...list, text:payload.text, trigger:payload.trigger, oldValue:payload.oldValue} : list ),
+                        {...list, text:payload.text, oldValue:payload.oldValue} : list ),
                     
                         doneLists: state.doneLists.map(doneList => doneList.id === payload.uniqe_id ?    
-                    {...doneList, text:payload.text, trigger:payload.trigger, oldValue:payload.oldValue} : doneList ),
+                    {...doneList, text:payload.text, oldValue:payload.oldValue} : doneList ),
                     
-                    historys: [...state.historys, payload]
 
 
 
                 }
+
+                //SECTION Add trigger into historys to display log on history page
+                case HISTORY_UPDATE: 
+                    return {
+                        ...state,
+                        historys: [payload, ...state.historys], //ANCHOR payload contains text, trigger, date or oldValue from edi_todo
+                    }
+
+                //SECTION Clear history log 
+                case CLEAR_HISTORY: 
+                    return {
+                        ...state,
+                        historys:[]
+                    }
 
             default: 
             return state;
