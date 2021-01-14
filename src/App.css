@@ -13,9 +13,11 @@
 .card .todo-action{
   cursor: pointer;
 }
-.test button{
+
+
+ .edit button{
   /* display: inline-block; */
   /* color: red; */
-  width: 80px;
+  width: 60px;
 }
 

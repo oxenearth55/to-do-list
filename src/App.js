@@ -16,6 +16,7 @@ const App = () => {
 
     <BrowserRouter>
       <Router>
+
         <Menu/>
 
         <Switch>
@@ -23,10 +24,7 @@ const App = () => {
           <Route exact path='/' component={Home}/>
           <Route exact path='/history' component={History}/>
 
-
         </Switch>
-
-
       </Router>
 
     </BrowserRouter>

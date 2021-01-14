@@ -5,3 +5,6 @@ export const DONE_LIST = 'DONE_LIST';
 export const UNDONE_LIST = 'UNDONE_LIST';
 export const HISTORY_UPDATE = 'HISTORY_UPDATE';
 export const CLEAR_HISTORY = 'CLEAR_HISTORY';
+export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+export const SEARCH_UNDONE = 'SEARCH_UNDONE';
+export const SEARCH_DONE = 'SEARCH_DONE';
